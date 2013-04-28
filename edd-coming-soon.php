@@ -61,6 +61,9 @@ function edd_coming_soon_is_active ( $download_id = 0 ) {
 function edd_coming_soon_render_option ( $post_id ) {
 	$coming_soon = (boolean) get_post_meta( $post_id, 'edd_coming_soon', true );
 	$coming_soon_text = get_post_meta( $post_id, 'edd_coming_soon_text', true );
+
+	// Default
+	$default_text = apply_filters( 'edd_cs_coming_soon_text', __( 'Coming Soon', 'edd-coming-soon' ) );
 ?>
 	<p>
 		<label for="edd_coming_soon">
@@ -68,10 +71,11 @@ function edd_coming_soon_render_option ( $post_id ) {
 			<?php _e( 'Enable Coming Soon / Custom Status download', 'edd-coming-soon' ); ?>
 		</label>
 	</p>
-	<p id="edd_coming_soon_container">
+
+	<p id="edd_coming_soon_container"<?php echo ( $coming_soon ? '' : ' style="display:none;"' ); ?>>
 		<label for="edd_coming_soon_text">
 			<input type="text" name="edd_coming_soon_text" id="edd_coming_soon_text" size="45" style="width:110px;" value="<?php echo esc_attr( $coming_soon_text ); ?>" />
-			<?php _e( 'Custom Status text (optional)', 'edd-coming-soon' ); ?>
+			<?php echo sprintf( __( 'Custom Status text (default: <em>%s</em>)', 'edd-coming-soon' ), $default_text ); ?>
 		</label>
 	</p>
 <?php
@@ -121,8 +125,18 @@ add_filter( 'edd_currency', 'edd_coming_soon_edd_currency' );
  * @since 1.0
  */
 function edd_coming_soon_filter_price ( $price, $download_id ) {
-	if ( edd_coming_soon_is_active( $download_id ) )
-		return apply_filters( 'edd_cs_coming_soon_text', get_post_meta( $download_id, 'edd_coming_soon_text', true ), $download_id );
+	if ( edd_coming_soon_is_active( $download_id ) ) {
+		// Default
+		$coming_soon_text = apply_filters( 'edd_cs_coming_soon_text', __( 'Coming Soon', 'edd-coming-soon' ) );
+
+		// Custom override
+		$custom_text = get_post_meta( $download_id, 'edd_coming_soon_text', true );
+
+		if ( 0 < strlen( $custom_text ) )
+			$coming_soon_text = $custom_text;
+
+		return apply_filters( 'edd_coming_soon_text', $coming_soon_text, $download_id );
+	}
 
 	return $price;
 }
