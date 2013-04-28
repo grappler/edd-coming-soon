@@ -1,11 +1,12 @@
 <?php
 /*
-Plugin Name: Easy Digital Downloads - Custom Status
-Plugin URI: http://scottkclark.com/
+Plugin Name: EDD Coming Soon
+Plugin URI: http://sumobi.com/store/edd-coming-soon/
 Description: Allows "custom status" downloads (not available for purchase) in Easy Digital Downloads
-Version: 1.0
-Author: Scott Kingsley Clark (based on code from Andrew Munro)
-Author URI: http://scottkclark.com
+Version: 1.1
+Author: Sumobi
+Author URI: http://sumobi.com/
+Contributors: sc0ttkclark
 License: GPL-2.0+
 License URI: http://www.opensource.org/licenses/gpl-license.php
 */

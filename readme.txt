@@ -1,4 +1,4 @@
-=== Easy Digital Downloads - Coming Soon and Custom Statuses ===
+=== EDD Coming Soon ===
 Contributors: sumobi, sc0ttkclark
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, coming soon, sumobi
@@ -20,15 +20,6 @@ This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugin
 1. Displays "Coming Soon" or the Custom Status text instead of the price when using the [downloads] shortcode, and anywhere else where the edd_price() function has been called.
 1. Prevents the coming soon download from being purchased. The plugin will remove the purchase button and stop the download from being added to cart via the edd_action. Eg ?edd_action=add_to_cart&download_id=XXX
 
-= Filtering the coming soon text =
-
-Paste this into your functions.php and modify the text below:
-
-    function themename_coming_soon_text() {
-	    return 'Available Soon';
-    }
-    add_filter( 'edd_cs_coming_soon_text', 'themename_coming_soon_text' );
-
 
 == Installation ==
 
@@ -48,7 +39,7 @@ Then proceed to mark downloads as "Coming Soon".
 == Changelog ==
 
 = 1.1 =
-* Added the ability to set custom text per download, default remains "Coming Soon"
+* Added the ability to set custom text per download, default remains "Coming Soon". Thanks to @sc0ttkclark
 
 = 1.0 =
 * Initial release
