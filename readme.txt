@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, coming soon, sumobi
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,10 +16,66 @@ This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugin
 
 1. Adds a checkbox to the download configuration so you can set the download to Coming Soon / Custom Status.
 1. Adds a text field to the download configuration so you can set the text to show (default "Coming Soon").
-1. Replaces the download's price in the pricing admin column with "Coming Soon" or the Custom Status text.
+1. Adds "Coming Soon" or your custom status text underneath the price on the admin pricing column
 1. Displays "Coming Soon" or the Custom Status text instead of the price when using the [downloads] shortcode, and anywhere else where the edd_price() function has been called.
 1. Prevents the coming soon download from being purchased. The plugin will remove the purchase button and stop the download from being added to cart via the edd_action. Eg ?edd_action=add_to_cart&download_id=XXX
 
+** Filter examples **
+
+Example filter of how you can change the default coming soon text. Copy this function to your functions.php
+
+    function edd_coming_soon_modify_default_status_text() {
+
+	    return 'Not long now!';
+
+    }
+    add_filter( 'edd_cs_coming_soon_text', 'edd_coming_soon_modify_default_status_text' );
+
+
+Example filter of how you can modify the markup of the coming soon text in the admin columns. Copy this function to your functions.php
+
+    function edd_coming_soon_modify_admin_column_text( $custom_text ) {
+
+	    return '<h2>' . $custom_text . '</h2>';
+
+    }
+    add_filter( 'edd_coming_soon_display_admin_text', 'edd_coming_soon_modify_admin_column_text' );
+
+
+Example filter of how you can modify the markup of the coming soon text on the front end. Copy this function to your functions.php 
+
+    function edd_coming_soon_modify_text( $custom_text ) {
+
+	    return '<h2>' . $custom_text . '</h2>';
+
+    }
+    add_filter( 'edd_coming_soon_display_text', 'edd_coming_soon_modify_text' );
+
+
+Example filter of how you can modify the message that displays when someone tries to purchase a download that is coming soon.
+This message can be tested by appending ?edd_action=add_to_cart&download_id=XXX to your URL, substituting XXX with your download ID
+
+    function edd_coming_soon_modify_prevent_download_message( $download_id ) {
+
+	    return __( 'This item cannot be purchased just yet, hang tight!', 'edd-coming-soon' ); 
+
+    }
+    add_filter( 'edd_coming_soon_pre_add_to_cart', 'edd_coming_soon_modify_prevent_download_message' );
+
+
+**Looking for a free theme for Easy Digital Downloads?**
+
+[http://sumobi.com/shop/shop-front/](http://sumobi.com/shop/shop-front/ "Shop Front")
+
+Shop Front was designed to be simple, responsive and lightweight. It has only the bare essentials, making it the perfect starting point for your next digital e-commerce store. It’s also easily extensible with a growing collection of add-ons to enhance the functionality and styling.
+
+**Stay up to date**
+
+*Become a fan on Facebook* 
+[http://www.facebook.com/sumobicom](http://www.facebook.com/sumobicom "Facebook")
+
+*Follow me on Twitter* 
+[http://twitter.com/sumobi_](http://twitter.com/sumobi_ "Twitter")
 
 == Installation ==
 
@@ -30,13 +86,45 @@ This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugin
 
 OR you can just install it with WordPress by going to Plugins >> Add New >> and type this plugin's name
 
-Then proceed to mark downloads as "Coming Soon".
+Mark downloads as "Coming Soon" from the download configuration metabox. Optionally you can enter in custom text
+
+== Frequently Asked Questions ==
+
+= I'm not seeing the "Coming Soon" text on my download grid =
+
+Some themes may have coded their own custom solution for displaying the downloads. Try switching to the default WordPress theme to see if you can see the text.
+
+= I'm still seeing a price on my single download page =
+
+It depends on how your theme displays the price on your single download page. If your theme uses the default EDD purchase form then this will be removed fine. However some themes might have their own function for displaying the price so you'll need to edit your theme to remove it. You can use the following condition to wrap blocks of code that shouldn't be displayed such as the price:
+
+    <?php if ( ! edd_coming_soon_is_active() ) : ?>
+         // the code you don't want to show when a download is set to coming soon
+    <?php endif; ?>
+
+= I don't want to show the coming soon text after the content on the single download page, how can I remove it? =
+
+Add the following to your functions.php
+
+    remove_filter( 'the_content', 'edd_coming_soon_single_download' );
+
 
 == Screenshots ==
 
-1. Download Configuration metabox with new coming soon checkbox option
+1. Easy Digital Download's download configuration metabox with the new coming soon option
+
+1. The coming soon text is displayed underneath the price on the admin pricing columns 
+
+1. The download's price is removed from the standard download grid, and the coming soon text is shown
+
+1. The download's coming soon text is shown after the content on the single download page. This can be removed
 
 == Changelog ==
+
+= 1.2 =
+* Fix: Coming soon text not displaying on front-end
+* New: Coming soon text is now shown underneath the price in the admin columns
+* New: Added example filters 
 
 = 1.1 =
 * Added the ability to set custom text per download, default remains "Coming Soon". Thanks to @sc0ttkclark

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EDD Coming Soon\n"
-"POT-Creation-Date: 2013-04-22 00:14+1200\n"
-"PO-Revision-Date: 2013-04-22 11:40+1200\n"
+"POT-Creation-Date: 2013-06-29 11:45+1200\n"
+"PO-Revision-Date: 2013-06-29 11:45+1200\n"
 "Last-Translator: \n"
 "Language-Team: Sumobi <andrew@sumobi.com>\n"
 "MIME-Version: 1.0\n"
@@ -13,18 +13,23 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-coming-soon.php:34
-msgid "Coming Soon:"
-msgstr ""
-
-#: ../edd-coming-soon.php:39
-msgid "Enable coming soon download"
-msgstr ""
-
-#: ../edd-coming-soon.php:98
+#: ../edd-coming-soon.php:73 ../edd-coming-soon.php:144
 msgid "Coming Soon"
 msgstr ""
 
-#: ../edd-coming-soon.php:133
-msgid "Coming Soon products can't be purchased"
+#: ../edd-coming-soon.php:78
+msgid "Enable Coming Soon / Custom Status download"
+msgstr ""
+
+#: ../edd-coming-soon.php:85
+#, php-format
+msgid "Custom Status text (default: <em>%s</em>)"
+msgstr ""
+
+#: ../edd-coming-soon.php:211
+msgid "This item cannot be purchased just yet, hang tight!"
+msgstr ""
+
+#: ../edd-coming-soon.php:264
+msgid "This download cannot be purchased"
 msgstr ""
