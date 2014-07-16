@@ -21,8 +21,13 @@ if ( !defined( 'EDD_COMING_SOON_URL' ) )
 if ( !defined( 'EDD_COMING_SOON_DIR' ) )
 	define( 'EDD_COMING_SOON_DIR', plugin_dir_path( __FILE__ ) );
 
-if ( !defined( 'EDD_COMING_SOON_ENABLE_VOTE' ) )
-	define( 'EDD_COMING_SOON_ENABLE_VOTE', apply_filters( 'edd_cs_vote_enable', true ) );
+/* Enable the voting feature */
+if ( !defined( 'EDD_COMING_SOON_VOTE_ENABLE' ) )
+	define( 'EDD_COMING_SOON_VOTE_ENABLE', apply_filters( 'edd_cs_vote_enable', true ) );
+
+/* Enable the voting feature when in the shortcode */
+if ( !defined( 'EDD_COMING_SOON_VOTE_SHORTCODE' ) )
+	define( 'EDD_COMING_SOON_VOTE_SHORTCODE', apply_filters( 'edd_cs_vote_enable', false ) );
 
 
 /**
@@ -91,7 +96,7 @@ function edd_coming_soon_render_option( $post_id ) {
 			</label>
 		</p>
 
-		<?php if( true === EDD_COMING_SOON_ENABLE_VOTE ): ?>
+		<?php if( true === EDD_COMING_SOON_VOTE_ENABLE ): ?>
 			<h3><?php _e( 'Customers Opinion', 'edd-coming-soon' ); ?></h3>
 			<p><?php printf( __( '%s people want this product.', 'edd-coming-soon' ), "<code>$count</code>" ); ?></p>
 		<?php endif; ?>
@@ -211,10 +216,27 @@ add_filter( 'the_content', 'edd_coming_soon_single_download' );
  */
 function edd_coming_soon_purchase_download_form( $purchase_form, $args ) {
 
+	global $post;
+
 	if ( edd_coming_soon_is_active( $args[ 'download_id' ] ) ) {
 
-		if( true === EDD_COMING_SOON_ENABLE_VOTE ) {
-			return edd_coming_soon_get_vote_form();
+		if( true === EDD_COMING_SOON_VOTE_ENABLE ) {
+
+			/* Display the voting form on single page */
+			if( is_single( $post ) && 'download' == $post->post_type ) {
+				return edd_coming_soon_get_vote_form();
+			}
+
+			else {
+
+				/* Only display the form in the download shortcode if enabled */
+				if( true === EDD_COMING_SOON_VOTE_SHORTCODE )
+					return edd_coming_soon_get_vote_form();
+
+				else
+					return '';
+			}
+
 		} else {
 			return '';
 		}
@@ -416,7 +438,7 @@ add_action( 'wp_dashboard_setup', 'edd_coming_soon_votes_add_widget' );
  */
 function edd_coming_soon_votes_add_widget() {
 
-	if( true === EDD_COMING_SOON_ENABLE_VOTE )
+	if( true === EDD_COMING_SOON_VOTE_ENABLE )
 		wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', __( 'Most Wanted Coming Soon Products', 'edd-coming-soon' ), 'edd_coming_soon_votes_widget' );
 }
 
