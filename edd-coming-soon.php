@@ -27,7 +27,7 @@ if ( !defined( 'EDD_COMING_SOON_VOTE_ENABLE' ) )
 
 /* Enable the voting feature when in the shortcode */
 if ( !defined( 'EDD_COMING_SOON_VOTE_SHORTCODE' ) )
-	define( 'EDD_COMING_SOON_VOTE_SHORTCODE', apply_filters( 'edd_cs_vote_enable', false ) );
+	define( 'EDD_COMING_SOON_VOTE_SHORTCODE', apply_filters( 'edd_cs_vote_shortcode_enable', false ) );
 
 
 /**
