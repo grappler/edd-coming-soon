@@ -419,3 +419,31 @@ function edd_coming_soon_votes_add_widget() {
 	if( true === EDD_COMING_SOON_ENABLE_VOTE )
 		wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', __( 'Most Wanted Coming Soon Products', 'edd-coming-soon' ), 'edd_coming_soon_votes_widget' );
 }
+
+add_action( 'wp_footer', 'edd_coming_soon_voting_progress' );
+/**
+ * Add voting progress.
+ *
+ * This replaces the vote button label during
+ * the form submission in order to clearly show
+ * the visitor that his vote is being taken into account.
+ *
+ * @since  1.3.0
+ * @return void
+ */
+function edd_coming_soon_voting_progress() {
+
+	if( wp_script_is( 'jquery', 'done' ) ):
+
+		$voting = apply_filters( 'edd_cs_voting_text', __( 'Voting...', 'edd-coming-soon' ) ); ?>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$('.edd-coming-soon-vote-btn').on('click', function() {
+					$(this).text('<?php echo $voting; ?>');
+				});
+			});
+		</script>
+
+	<?php endif;
+}
