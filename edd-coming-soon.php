@@ -286,6 +286,7 @@ function edd_coming_soon_admin_scripts( $hook ) {
 add_action( 'admin_enqueue_scripts', 'edd_coming_soon_admin_scripts' );
 
 add_action( 'init', 'edd_coming_soon_increment_votes' );
+
 /**
  * Increment the votes count.
  *
@@ -299,7 +300,8 @@ function edd_coming_soon_increment_votes() {
 	if ( !isset( $_POST['edd_cs_pid'] ) || !isset( $_POST['edd_cs_nonce'] ) || !wp_verify_nonce( $_POST['edd_cs_nonce'], 'vote' ) )
 		return false;
 
-	$product_id = isset( $_POST['edd_cs_pid'] ) ? intval( $_POST['edd_cs_pid'] ) : false;
+	$product_id  = isset( $_POST['edd_cs_pid'] ) ? intval( $_POST['edd_cs_pid'] ) : false;
+	$redirect_id = isset( $_POST['edd_cs_redirect'] ) ? intval( $_POST['edd_cs_redirect'] ) : $product_id;
 
 	if ( false === $product_id )
 		return false;
@@ -317,7 +319,7 @@ function edd_coming_soon_increment_votes() {
 	if( false !== $update )
 		setcookie( "edd_cs_vote_$product_id", '1', time() + 60*60*30, '/' );
 
-	$redirect = get_permalink( $product_id );
+	$redirect = get_permalink( $redirect_id ) . '#edd-cs-voted';
 
 	/* Read-only redirect (to avoid resubmissions on page refresh) */
 	wp_redirect( $redirect );
@@ -326,38 +328,88 @@ function edd_coming_soon_increment_votes() {
 }
 
 /**
+ * Vote shortcode.
+ *
+ * The shortcode adds the voting button on any page.
+ * It takes two attributes: product_id and show_desc.
+ * The shortcode should be used as follows:
+ *
+ * [edd_cs_vote product_id="XX" show_desc="0"]
+ *
+ * @since  1.3.0
+ * @param  product_id  ID of the product to vote for
+ * @param  show_desc   Show/hide the description text above the button. "1" for show (default), "0" for hide
+ */
+add_shortcode( 'edd_cs_vote', 'edd_coming_soon_get_vote_form' );
+
+/**
  * Get the voting form.
  *
- * The form will record a new vote for the current product.
+ * The form will record a new vote for the current product. It is used
+ * both in edd_coming_soon_purchase_download_form and in the vote shortcode.
  *
  * @since  1.3.0
  * @return string Form markup
  */
-function edd_coming_soon_get_vote_form() {
+function edd_coming_soon_get_vote_form( $atts = array() ) {
 
 	global $post;
 
-	$voted       = isset( $_COOKIE['edd_cs_vote_' . $post->ID] ) ? true : false;
+	/* Default arguments used for the shortcode */
+	$defaults = array(
+		'product_id' => false,
+		'show_desc'  => true
+	);
+
+	/* Extract arguments */
+	extract( shortcode_atts( $defaults, $atts ) );
+
+	/* Get product ID */
+	if ( false !== $product_id ) {
+		$pid = intval( $product_id );
+	} elseif( isset( $post ) ) {
+		$pid = $post->ID;
+	} else {
+		return false;
+	}
+
+	/* Check if the post is actually a download */
+	if( 'download' != ( $post_type = get_post_type( $pid ) ) )
+		return false;
+
+	$voted       = isset( $_COOKIE['edd_cs_vote_' . $pid] ) ? true : false;
 	$description = apply_filters( 'edd_cs_vote_description', sprintf( __( 'Tell the developer you want this %s and we will notify him/her of your interest.', 'edd-coming-soon' ), edd_get_label_singular( true ) ) );
 	$submission  = apply_filters( 'edd_cs_vote_submission', sprintf( __( 'I want this %s', 'edd-coming-soon' ), edd_get_label_singular( true ) ) );
+	$sc          = '';
+
+	ob_start();
 	?>
 
 	<?php if( true === $voted ): ?>
 
-		<p><?php printf( __( 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true ) ); ?></p>
+		<p id="edd-cs-voted" class="edd-cs-voted"><?php printf( __( 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true ) ); ?></p>
 
 	<?php else: ?>
 
 		<form role="form" method="post" action="<?php echo get_permalink( $post->ID ); ?>" class="edd-coming-soon-vote-form">
-			<p class="edd-cs-vote-description"><?php echo $description; ?></p>
-			<input type="hidden" name="edd_cs_pid" value="<?php echo $post->ID; ?>">
+			<?php if( true === boolval( $show_desc ) ): ?><p class="edd-cs-vote-description"><?php echo $description; ?></p><?php endif; ?>
+			<input type="hidden" name="edd_cs_pid" value="<?php echo $pid; ?>">
+			<input type="hidden" name="edd_cs_redirect" value="<?php echo $post->ID; ?>">
 			<?php wp_nonce_field( 'vote', 'edd_cs_nonce', false, true ); ?>
 			<button type="submit" class="edd-coming-soon-vote-btn" name="edd_cs_vote"><span class="dashicons dashicons-heart"></span> <?php echo $submission; ?></button>
 		</form>
 
-	<?php endif; ?>
+	<?php endif;
 
-<?php }
+	/* Get buffer content */
+	$sc = ob_get_contents();
+
+	/* Clean buffer */
+	ob_end_clean();
+
+	return $sc;
+
+}
 
 /**
  * Votes dashboard widget.
