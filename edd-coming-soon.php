@@ -21,15 +21,6 @@ if ( !defined( 'EDD_COMING_SOON_URL' ) )
 if ( !defined( 'EDD_COMING_SOON_DIR' ) )
 	define( 'EDD_COMING_SOON_DIR', plugin_dir_path( __FILE__ ) );
 
-/* Enable the voting feature */
-if ( !defined( 'EDD_COMING_SOON_VOTE_ENABLE' ) )
-	define( 'EDD_COMING_SOON_VOTE_ENABLE', apply_filters( 'edd_cs_vote_enable', true ) );
-
-/* Enable the voting feature when in the shortcode */
-if ( !defined( 'EDD_COMING_SOON_VOTE_SHORTCODE' ) )
-	define( 'EDD_COMING_SOON_VOTE_SHORTCODE', apply_filters( 'edd_cs_vote_shortcode_enable', false ) );
-
-
 /**
  * Internationalization
  *
@@ -75,6 +66,8 @@ function edd_coming_soon_is_active( $download_id = 0 ) {
 function edd_coming_soon_render_option( $post_id ) {
 
 	$coming_soon      = (boolean) get_post_meta( $post_id, 'edd_coming_soon', true );
+	$vote_enable      = (boolean) get_post_meta( $post_id, 'edd_cs_vote_enable', true );
+	$vote_enable_sc   = (boolean) get_post_meta( $post_id, 'edd_cs_vote_enable_sc', true );
 	$coming_soon_text = get_post_meta( $post_id, 'edd_coming_soon_text', true );
 	$count            = intval( get_post_meta( $post_id, '_edd_coming_soon_votes', true ) );
 
@@ -96,10 +89,23 @@ function edd_coming_soon_render_option( $post_id ) {
 			</label>
 		</p>
 
-		<?php if( true === EDD_COMING_SOON_VOTE_ENABLE ): ?>
 			<h3><?php _e( 'Customer\'s Opinion', 'edd-coming-soon' ); ?></h3>
+
+			<p>
+				<label for="edd_cs_vote_enable">
+					<input type="checkbox" name="edd_cs_vote_enable" id="edd_cs_vote_enable" value="1" <?php checked( true, $vote_enable ); ?> />
+					<?php _e( 'Enable Voting', 'edd-coming-soon' ); ?>
+				</label>
+			</p>
+
+			<p>
+				<label for="edd_cs_vote_enable_sc">
+					<input type="checkbox" name="edd_cs_vote_enable_sc" id="edd_cs_vote_enable_sc" value="1" <?php checked( true, $vote_enable_sc ); ?> />
+					<?php printf( __( 'Enable Voting in the %s shortcode.', 'edd-coming-soon' ), '<code>downloads</code>' ); ?>
+				</label>
+			</p>
+			
 			<p><?php printf( __( '%s people want this %s.', 'edd-coming-soon' ), "<code>$count</code>", edd_get_label_singular() ); ?></p>
-		<?php endif; ?>
 	</div>
 <?php
 }
@@ -119,6 +125,8 @@ function edd_coming_soon_metabox_fields_save( $fields ) {
 
 	$fields[] = 'edd_coming_soon';
 	$fields[] = 'edd_coming_soon_text';
+	$fields[] = 'edd_cs_vote_enable';
+	$fields[] = 'edd_cs_vote_enable_sc';
 
 	return $fields;
 
@@ -220,7 +228,7 @@ function edd_coming_soon_purchase_download_form( $purchase_form, $args ) {
 
 	if ( edd_coming_soon_is_active( $args[ 'download_id' ] ) ) {
 
-		if( true === EDD_COMING_SOON_VOTE_ENABLE ) {
+		if( true === ( $vote_enable = (boolean) get_post_meta( $post->ID, 'edd_cs_vote_enable', true ) ) ) {
 
 			/* Display the voting form on single page */
 			if( is_single( $post ) && 'download' == $post->post_type ) {
@@ -230,7 +238,7 @@ function edd_coming_soon_purchase_download_form( $purchase_form, $args ) {
 			} else {
 
 				/* Only display the form in the download shortcode if enabled */
-				if( true === EDD_COMING_SOON_VOTE_SHORTCODE ) {
+				if( true === ( $vote_enable_sc = (boolean) get_post_meta( $post->ID, 'edd_cs_vote_enable_sc', true ) ) ) {
 					return edd_coming_soon_get_vote_form();
 				} else {
 					return '';
@@ -490,7 +498,6 @@ add_action( 'wp_dashboard_setup', 'edd_coming_soon_votes_add_widget' );
  */
 function edd_coming_soon_votes_add_widget() {
 
-	if( true === EDD_COMING_SOON_VOTE_ENABLE )
 		wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', sprintf( __( 'Most Wanted Coming Soon %s', 'edd-coming-soon' ), edd_get_label_plural() ), 'edd_coming_soon_votes_widget' );
 }
 
@@ -521,4 +528,20 @@ function edd_coming_soon_voting_progress() {
 		</script>
 
 	<?php endif;
+}
+
+/**
+ * Fallback for boolval used for PHP version
+ * older than 5.0.0
+ */
+if( !function_exists( 'boolval' ) ) {
+    /**
+     * Get the boolean value of a variable
+     *
+     * @param mixed The scalar value being converted to a boolean.
+     * @return boolean The boolean value of var.
+     */
+    function boolval( $var ) {
+        return !! $var;
+    }
 }
