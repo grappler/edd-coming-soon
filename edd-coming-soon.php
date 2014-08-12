@@ -102,7 +102,7 @@ function edd_coming_soon_render_option( $post_id ) {
 			</label>
 		</p>
 		
-		<p><strong><?php _e( 'Customer\'s opinion', 'edd-coming-soon' ); ?></strong></p>
+		<p><strong><?php _e( 'Votes', 'edd-coming-soon' ); ?></strong></p>
 		<p><?php printf( __( '%s people want this %s', 'edd-coming-soon' ), "<strong>$count</strong>", edd_get_label_singular( true ) ); ?></p>
 	</div>
 <?php
