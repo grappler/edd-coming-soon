@@ -3,8 +3,8 @@ Contributors: sumobi, sc0ttkclark, julien731
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, coming soon, sumobi
 Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 1.2
+Tested up to: 3.9.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,9 +25,7 @@ This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugin
 Example filter of how you can change the default coming soon text. Copy this function to your functions.php
 
     function edd_coming_soon_modify_default_status_text() {
-
 	    return 'Not long now!';
-
     }
     add_filter( 'edd_cs_coming_soon_text', 'edd_coming_soon_modify_default_status_text' );
 
@@ -35,9 +33,7 @@ Example filter of how you can change the default coming soon text. Copy this fun
 Example filter of how you can modify the markup of the coming soon text in the admin columns. Copy this function to your functions.php
 
     function edd_coming_soon_modify_admin_column_text( $custom_text ) {
-
 	    return '<h2>' . $custom_text . '</h2>';
-
     }
     add_filter( 'edd_coming_soon_display_admin_text', 'edd_coming_soon_modify_admin_column_text' );
 
@@ -45,9 +41,7 @@ Example filter of how you can modify the markup of the coming soon text in the a
 Example filter of how you can modify the markup of the coming soon text on the front end. Copy this function to your functions.php 
 
     function edd_coming_soon_modify_text( $custom_text ) {
-
 	    return '<h2>' . $custom_text . '</h2>';
-
     }
     add_filter( 'edd_coming_soon_display_text', 'edd_coming_soon_modify_text' );
 
@@ -56,18 +50,9 @@ Example filter of how you can modify the message that displays when someone trie
 This message can be tested by appending ?edd_action=add_to_cart&download_id=XXX to your URL, substituting XXX with your download ID
 
     function edd_coming_soon_modify_prevent_download_message( $download_id ) {
-
 	    return __( 'This item cannot be purchased just yet, hang tight!', 'edd-coming-soon' ); 
-
     }
     add_filter( 'edd_coming_soon_pre_add_to_cart', 'edd_coming_soon_modify_prevent_download_message' );
-
-
-**Looking for a free theme for Easy Digital Downloads?**
-
-[http://sumobi.com/shop/shop-front/](http://sumobi.com/shop/shop-front/ "Shop Front")
-
-Shop Front was designed to be simple, responsive and lightweight. It has only the bare essentials, making it the perfect starting point for your next digital e-commerce store. It’s also easily extensible with a growing collection of add-ons to enhance the functionality and styling.
 
 **Stay up to date**
 
@@ -120,6 +105,11 @@ Add the following to your functions.php
 1. The download's coming soon text is shown after the content on the single download page. This can be removed
 
 == Changelog ==
+
+= 1.3 =
+* New: Voting feature. Users can now express their interest in downloads that are marked as coming soon.
+* New: Dashboard widget for showing how many votes coming soon downloads have
+* New: [edd_cs_vote] shortcode for allowing a user to vote on a download from any page
 
 = 1.2 =
 * Fix: Coming soon text not displaying on front-end
