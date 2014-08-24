@@ -19,6 +19,7 @@ This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugin
 1. Adds "Coming Soon" or your custom status text underneath the price on the admin pricing column
 1. Displays "Coming Soon" or the Custom Status text instead of the price when using the [downloads] shortcode, and anywhere else where the edd_price() function has been called.
 1. Prevents the coming soon download from being purchased. The plugin will remove the purchase button and stop the download from being added to cart via the edd_action. Eg ?edd_action=add_to_cart&download_id=XXX
+1. Allows customers to vote on a specific download. A download's votes are listed on the edit/publish page and on the admin dashboard
 
 ** Filter examples **
 
@@ -104,9 +105,15 @@ Add the following to your functions.php
 
 1. The download's coming soon text is shown after the content on the single download page. This can be removed
 
+== Upgrade Notice ==
+
+= 1.3 =
+* New: Voting feature. Users can now express their interest in downloads that are marked as coming soon.
+
 == Changelog ==
 
 = 1.3 =
+* Fix: Moved the plugin's options to the "download settings" metabox
 * New: Voting feature. Users can now express their interest in downloads that are marked as coming soon.
 * New: Dashboard widget for showing how many votes coming soon downloads have
 * New: [edd_cs_vote] shortcode for allowing a user to vote on a download from any page
