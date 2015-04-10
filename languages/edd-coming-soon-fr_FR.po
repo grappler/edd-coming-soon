@@ -1,0 +1,109 @@
+# Copyright (C) 2015 EDD Coming Soon
+# This file is distributed under the same license as the EDD Coming Soon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: EDD Coming Soon\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/edd-coming-soon\n"
+"POT-Creation-Date: 2015-04-09 07:26:36+00:00\n"
+"PO-Revision-Date: 2015-04-10 15:54+0100\n"
+"Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
+"Language-Team: fxbenard <fx@fxbenard.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8beta1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: edd-coming-soon.php:75 edd-coming-soon.php:164
+msgid "Coming Soon"
+msgstr "Prochainement"
+
+#: edd-coming-soon.php:80
+msgid "Enable Coming Soon / Custom Status download"
+msgstr "Activer l'état Prochainement / Personnalisé"
+
+#: edd-coming-soon.php:88
+msgid "Custom Status text (default: <em>%s</em>)"
+msgstr "Texte de l'état personnalisé (par défaut : <em>%s</em>)"
+
+#: edd-coming-soon.php:92
+msgid "Voting"
+msgstr "Vote"
+
+#: edd-coming-soon.php:97
+msgid "Enable voting"
+msgstr "Activer le vote"
+
+#: edd-coming-soon.php:104
+msgid "Enable voting in the %s shortcode"
+msgstr "Activer le vote dans le code court de %s"
+
+#: edd-coming-soon.php:108 edd-coming-soon.php:444
+msgid "Votes"
+msgstr "Votes"
+
+#: edd-coming-soon.php:109
+msgid "%s people want this %s"
+msgstr "%s personne veulent ce %s"
+
+#: edd-coming-soon.php:257
+msgid "This download cannot be purchased"
+msgstr "Ce téléchargement ne peut être acheté"
+
+#: edd-coming-soon.php:358
+msgid "Let us know you're interested by voting below."
+msgstr "Faites-moi savoir que vous êtes intéressé en votant ci-dessous."
+
+#: edd-coming-soon.php:359
+msgid "I want this"
+msgstr "Je le veux"
+
+#: edd-coming-soon.php:366
+msgid "We heard you! Your interest for this %s was duly noted."
+msgstr "Parfait ! Votre intêret pour %s a bien été noté."
+
+#: edd-coming-soon.php:463
+msgid "%s with no votes won't appear in the above list."
+msgstr "Les %s sans vote n'apparaitront pas dans la liste ci-dessus."
+
+#: edd-coming-soon.php:466
+msgid ""
+"Either there are no &laquo;Coming Soon&raquo; %s in the shop at the moment, or "
+"none of them received votes."
+msgstr ""
+"Il n'y a aucun %s « En préparation » dans la boutique pour le moment, ou aucun "
+"d'eux n'a obtenu de vote."
+
+#: edd-coming-soon.php:478
+msgid "Most Wanted Coming Soon %s"
+msgstr "Le %s en préparation le plus demandé"
+
+#: edd-coming-soon.php:496
+msgid "Voting..."
+msgstr "Vote..."
+
+#. Plugin Name of the plugin/theme
+msgid "EDD Coming Soon"
+msgstr "EDD Coming Soon"
+
+#. Plugin URI of the plugin/theme
+msgid "http://sumobi.com/shop/edd-coming-soon/"
+msgstr "http://sumobi.com/shop/edd-coming-soon/"
+
+#. Description of the plugin/theme
+msgid ""
+"Allows \"custom status\" downloads (not available for purchase) and allows "
+"voting on these downloads in Easy Digital Downloads"
+msgstr ""
+"Permet de créer un \"état personnalisé\" (non disponible à l'achat) et de "
+"voter sur ces téléchargements dans Easy Digital Downloads"
+
+#. Author of the plugin/theme
+msgid "Andrew Munro, Sumobi"
+msgstr "Andrew Munro, Sumobi"
+
+#. Author URI of the plugin/theme
+msgid "http://sumobi.com/"
+msgstr "http://sumobi.com/"
