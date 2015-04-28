@@ -112,6 +112,12 @@ Add the following to your functions.php
 
 == Changelog ==
 
+= 1.3.1 =
+* New: edd_coming_soon_voting_enabled() function to check whether a download has voting enabled
+* New: edd_coming_soon_get_votes() function to get the total votes for a download
+* Tweak: Creates the "_edd_coming_soon_votes" meta key on save if voting is enabled for a download and it hasn't received any votes
+
+
 = 1.3 =
 * Fix: Moved the plugin's options to the "download settings" metabox
 * New: Voting feature. Users can now express their interest in downloads that are marked as coming soon.

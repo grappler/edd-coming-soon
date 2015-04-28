@@ -3,7 +3,7 @@
 Plugin Name: EDD Coming Soon
 Plugin URI: http://sumobi.com/shop/edd-coming-soon/
 Description: Allows "custom status" downloads (not available for purchase) and allows voting on these downloads in Easy Digital Downloads
-Version: 1.3
+Version: 1.3.1
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 Contributors: sc0ttkclark, julien731
@@ -13,7 +13,7 @@ License URI: http://www.opensource.org/licenses/gpl-license.php
 
 // Plugin constants
 if ( ! defined( 'EDD_COMING_SOON' ) )
-	define( 'EDD_COMING_SOON', '1.3' );
+	define( 'EDD_COMING_SOON', '1.3.1' );
 
 if ( ! defined( 'EDD_COMING_SOON_URL' ) )
 	define( 'EDD_COMING_SOON_URL', plugin_dir_url( __FILE__ ) );
@@ -318,6 +318,67 @@ function edd_coming_soon_increment_votes() {
 add_action( 'init', 'edd_coming_soon_increment_votes' );
 
 /**
+ * Save downloads with _edd_coming_soon_votes meta key set to 0
+ *
+ * @since   1.3.1
+ * @return  
+ */
+function edd_coming_soon_save_download( $post_id, $post ) {
+
+	$count = edd_coming_soon_get_votes( $post_id );
+
+	// update count on save if no count currently exists
+	if ( edd_coming_soon_voting_enabled( $post_id ) && ! $count ) {
+		update_post_meta( $post_id, '_edd_coming_soon_votes', 0 );
+	}
+
+}
+add_action( 'edd_save_download', 'edd_coming_soon_save_download', 10, 2 );
+
+/**
+ * Check if a download has voting enabled
+ *
+ * @since   1.3.1
+ * @return  boolean
+ */
+function edd_coming_soon_voting_enabled( $download_id = 0 ) {
+
+	if ( ! $download_id ) {
+		return;
+	}
+
+	$voting_enabled =  get_post_meta( $download_id , 'edd_cs_vote_enabled', true );
+
+	if ( $voting_enabled ) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Get a download's total votes
+ *
+ * @since   1.3.1
+ * @return  int $count, 0 otherwise
+ */
+function edd_coming_soon_get_votes( $download_id = 0 ) {
+	
+	if ( ! $download_id ) {
+		return;
+	}
+
+	$count = get_post_meta( $download_id , '_edd_coming_soon_votes', true );
+
+	if ( $count ) {
+		return $count;
+	}
+
+	return 0;
+
+}
+
+/**
  * Get the voting form.
  *
  * The form will record a new vote for the current product. It is used
@@ -472,6 +533,11 @@ function edd_coming_soon_votes_widget() {
  * @since  1.3.0
  */
 function edd_coming_soon_votes_add_widget() {
+
+	if ( ! class_exists( 'Easy_Digital_Downloads' ) ) {
+		return;
+	}
+	
 	wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', sprintf( __( 'Most Wanted Coming Soon %s', 'edd-coming-soon' ), edd_get_label_plural() ), 'edd_coming_soon_votes_widget' );
 }
 add_action( 'wp_dashboard_setup', 'edd_coming_soon_votes_add_widget' );
