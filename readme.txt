@@ -115,6 +115,7 @@ Add the following to your functions.php
 = 1.3.1 =
 * New: edd_coming_soon_voting_enabled() function to check whether a download has voting enabled
 * New: edd_coming_soon_get_votes() function to get the total votes for a download
+* New: French translation, props fxbenard
 * Tweak: Creates the "_edd_coming_soon_votes" meta key on save if voting is enabled for a download and it hasn't received any votes
 
 
