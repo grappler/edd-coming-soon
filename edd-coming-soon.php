@@ -141,7 +141,15 @@ add_filter( 'edd_metabox_fields_save', 'edd_coming_soon_metabox_fields_save' );
  * @since 1.2
  */
 function edd_coming_soon_admin_price_column( $price, $download_id ) {
+	$cs_active = get_post_meta($download_id, 'edd_coming_soon' );
+	$votesenabled = get_post_meta($download_id, 'edd_cs_vote_enable' );
+	$votes_sc_enabled = get_post_meta($download_id, 'edd_cs_vote_enable_sc' );
+	$votes = get_post_meta($download_id, '_edd_coming_soon_votes');
 	$price .= '<br />' . edd_coming_soon_get_custom_status_text();
+
+	if($cs_active[0] == 1 && ( $votesenabled[0] == 1 || $votes_sc_enabled[0] == 1 ) ) {
+		$price .= '<br /><strong>Votes: ' . $votes[0] . '</strong>';
+	}
 
 	return $price;
 }
