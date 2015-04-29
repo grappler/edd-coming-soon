@@ -424,7 +424,7 @@ function edd_coming_soon_get_vote_form( $atts = array() ) {
 
 	<?php if ( $voted ) : ?>
 
-		<p id="edd-cs-voted" class="edd-cs-voted"><?php printf( __( 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true ) ); ?></p>
+		<p id="edd-cs-voted" class="edd-cs-voted"><?php printf( __( apply_filters( 'edd_coming_soon_voted_message', 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true )) ); ?></p>
 
 	<?php else : ?>
 
