@@ -350,7 +350,7 @@ function edd_coming_soon_voting_enabled( $download_id = 0 ) {
 		return;
 	}
 
-	$voting_enabled =  get_post_meta( $download_id , 'edd_cs_vote_enabled', true );
+	$voting_enabled = get_post_meta( $download_id , 'edd_cs_vote_enable', true );
 
 	if ( $voting_enabled ) {
 		return true;
