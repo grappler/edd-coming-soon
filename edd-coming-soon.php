@@ -148,7 +148,7 @@ function edd_coming_soon_admin_price_column( $price, $download_id ) {
 	$price .= '<br />' . edd_coming_soon_get_custom_status_text();
 
 	if($cs_active[0] == 1 && ( $votesenabled[0] == 1 || $votes_sc_enabled[0] == 1 ) ) {
-		$price .= '<br /><strong>' . __( "Votes: ", "edd-coming-soon" ) . $votes[0] . '</strong>';
+		$price .= '<br /><strong>' . __( 'Votes: ', 'edd-coming-soon' ) . $votes[0] . '</strong>';
 	}
 
 	return $price;
