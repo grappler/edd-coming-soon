@@ -105,11 +105,6 @@ Add the following to your functions.php
 
 1. The download's coming soon text is shown after the content on the single download page. This can be removed
 
-== Upgrade Notice ==
-
-= 1.3 =
-* New: Voting feature. Users can now express their interest in downloads that are marked as coming soon.
-
 == Changelog ==
 
 = 1.3.1 =
