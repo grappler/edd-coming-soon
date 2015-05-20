@@ -141,14 +141,23 @@ add_filter( 'edd_metabox_fields_save', 'edd_coming_soon_metabox_fields_save' );
  * @since 1.2
  */
 function edd_coming_soon_admin_price_column( $price, $download_id ) {
-	$cs_active = get_post_meta($download_id, 'edd_coming_soon' );
-	$votesenabled = get_post_meta($download_id, 'edd_cs_vote_enable' );
-	$votes_sc_enabled = get_post_meta($download_id, 'edd_cs_vote_enable_sc' );
-	$votes = get_post_meta($download_id, '_edd_coming_soon_votes');
+
+	// is coming soon download
+	$cs_active = edd_coming_soon_is_active( $download_id );
+	
+	// voting enabled
+	$votes_enabled = edd_coming_soon_voting_enabled( $download_id );
+
+	// voting enabled in shortcode
+	$votes_sc_enabled = (boolean) get_post_meta( $download_id, 'edd_cs_vote_enable_sc', true );
+
+	// votes
+	$votes = get_post_meta( $download_id, '_edd_coming_soon_votes', true );
+	
 	$price .= '<br />' . edd_coming_soon_get_custom_status_text();
 
-	if ( $cs_active[0] == 1 && ( $votesenabled[0] == 1 || $votes_sc_enabled[0] == 1 ) ) {
-		$price .= '<br /><strong>' . __( 'Votes: ', 'edd-coming-soon' ) . $votes[0] . '</strong>';
+	if ( $cs_active && ( $votes_enabled || $votes_sc_enabled ) ) {	
+		$price .= '<br /><strong>' . __( 'Votes: ', 'edd-coming-soon' ) . $votes . '</strong>';
 	}
 
 	return $price;
