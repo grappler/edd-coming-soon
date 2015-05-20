@@ -435,13 +435,14 @@ function edd_coming_soon_get_vote_form( $atts = array() ) {
 	$voted            = isset( $_COOKIE['edd_cs_vote_' . $pid] ) ? true : false;
 	$vote_description = apply_filters( 'edd_cs_vote_description', __( 'Let us know you\'re interested by voting below.', 'edd-coming-soon' ) );
 	$submission       = apply_filters( 'edd_cs_vote_submission', __( 'I want this', 'edd-coming-soon' ) );
+	$vote_message     = apply_filters( 'edd_coming_soon_voted_message', sprintf( __( 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true ) ) );
 
 	ob_start();
 	?>
 
 	<?php if ( $voted ) : ?>
 
-		<p id="edd-cs-voted" class="edd-cs-voted"><?php printf( __( apply_filters( 'edd_coming_soon_voted_message', 'We heard you! Your interest for this %s was duly noted.', 'edd-coming-soon' ), edd_get_label_singular( true )) ); ?></p>
+		<p id="edd-cs-voted" class="edd-cs-voted"><?php echo $vote_message; ?></p>
 
 	<?php else : ?>
 
