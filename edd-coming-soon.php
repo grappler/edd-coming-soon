@@ -3,7 +3,7 @@
 Plugin Name: EDD Coming Soon
 Plugin URI: http://sumobi.com/shop/edd-coming-soon/
 Description: Allows "custom status" downloads (not available for purchase) and allows voting on these downloads in Easy Digital Downloads
-Version: 1.3.1
+Version: 1.3.2
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 Contributors: sc0ttkclark, julien731
@@ -16,7 +16,7 @@ Domain Path: languages
 
 // Plugin constants
 if ( ! defined( 'EDD_COMING_SOON' ) )
-	define( 'EDD_COMING_SOON', '1.3.1' );
+	define( 'EDD_COMING_SOON', '1.3.2' );
 
 if ( ! defined( 'EDD_COMING_SOON_URL' ) )
 	define( 'EDD_COMING_SOON_URL', plugin_dir_url( __FILE__ ) );
