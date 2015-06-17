@@ -77,7 +77,7 @@ function edd_coming_soon_render_option( $post_id ) {
 	<p>
 		<label for="edd_coming_soon">
 			<input type="checkbox" name="edd_coming_soon" id="edd_coming_soon" value="1" <?php checked( true, $coming_soon ); ?> />
-			<?php _e( 'Enable Coming Soon / Custom Status download', 'edd-coming-soon' ); ?>
+			<?php _e( 'Enable "Coming Soon" / custom download status', 'edd-coming-soon' ); ?>
 		</label>
 	</p>
 
@@ -86,6 +86,7 @@ function edd_coming_soon_render_option( $post_id ) {
 			<label for="edd_coming_soon_text">
 				<input class="large-text" type="text" name="edd_coming_soon_text" id="edd_coming_soon_text" value="<?php echo esc_attr( $coming_soon_text ); ?>" />
 				<?php echo sprintf( __( 'Custom Status text (default: <em>%s</em>)', 'edd-coming-soon' ), $default_text ); ?>
+				<?php /* translators: %s: Default coming soon test */ ?>
 			</label>
 		</p>
 
@@ -101,12 +102,14 @@ function edd_coming_soon_render_option( $post_id ) {
 		<p>
 			<label for="edd_cs_vote_enable_sc">
 				<input type="checkbox" name="edd_cs_vote_enable_sc" id="edd_cs_vote_enable_sc" value="1" <?php checked( true, $vote_enable_sc ); ?> />
+				<?php /* translators: %s: [downloads] */ ?>
 				<?php printf( __( 'Enable voting in the %s shortcode', 'edd-coming-soon' ), '[downloads]' ); ?>
 			</label>
 		</p>
 
 		<p><strong><?php _e( 'Votes', 'edd-coming-soon' ); ?></strong></p>
-		<p><?php printf( __( '%s people want this %s', 'edd-coming-soon' ), "<strong>$count</strong>", edd_get_label_singular( true ) ); ?></p>
+		<?php /* translators: %1$s: Number of votes %2$s: Download singular form */ ?>
+		<p><?php printf( __( '%1$s people want this %2$s', 'edd-coming-soon' ), "<strong>$count</strong>", edd_get_label_singular( true ) ); ?></p>
 	</div>
 <?php
 }
@@ -156,8 +159,9 @@ function edd_coming_soon_admin_price_column( $price, $download_id ) {
 	
 	$price .= '<br />' . edd_coming_soon_get_custom_status_text();
 
-	if ( $cs_active && ( $votes_enabled || $votes_sc_enabled ) ) {	
-		$price .= '<br /><strong>' . __( 'Votes: ', 'edd-coming-soon' ) . $votes . '</strong>';
+	if ( $cs_active && ( $votes_enabled || $votes_sc_enabled ) ) {
+		/* translators: %s: number of votes */
+		$price .= '<br /><strong>' . sprintf( __( 'Votes:  %s', 'edd-coming-soon' ), $votes )s . '</strong>';
 	}
 
 	return $price;
@@ -540,8 +544,10 @@ function edd_coming_soon_votes_widget() {
 		</table>
 
 		<p><small><?php printf( __( '%s with no votes won\'t appear in the above list.', 'edd-coming-soon' ), edd_get_label_plural() ); ?></small></p>
+		<?php /* translators: %s: Downloads plural form */ ?>
 
 	<?php } else {
+		/* translators: %s: Downloads plural form */
 		printf( __( 'Either there are no &laquo;Coming Soon&raquo; %s in the shop at the moment, or none of them received votes.', 'edd-coming-soon' ), edd_get_label_plural( true ) );
 	}
 
@@ -558,8 +564,8 @@ function edd_coming_soon_votes_add_widget() {
 	if ( ! class_exists( 'Easy_Digital_Downloads' ) ) {
 		return;
 	}
-	
-	wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', sprintf( __( 'Most Wanted Coming Soon %s', 'edd-coming-soon' ), edd_get_label_plural() ), 'edd_coming_soon_votes_widget' );
+	/* translators: %s: Downloads plural form */
+	wp_add_dashboard_widget( 'edd_coming_soon_votes_widget', sprintf( __( 'Most wanted Coming Soon %s', 'edd-coming-soon' ), edd_get_label_plural() ), 'edd_coming_soon_votes_widget' );
 }
 add_action( 'wp_dashboard_setup', 'edd_coming_soon_votes_add_widget' );
 
