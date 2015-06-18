@@ -26,7 +26,7 @@ msgstr "Bald verfügbar"
 
 #: edd-coming-soon.php:80
 msgid "Enable \"Coming Soon\" / custom download status"
-msgstr "\"Coming Soon\" / benutzerdefinierte download status aktivieren"
+msgstr "\"Coming Soon\" / benutzerdefinierter Download-Status aktivieren"
 
 #: edd-coming-soon.php:90
 #, php-format
@@ -44,16 +44,16 @@ msgstr "Abstimmen aktivieren"
 #: edd-coming-soon.php:110
 #, php-format
 msgid "Enable voting in the %s shortcode"
-msgstr "Abstimmen in das %s shortcode aktivieren"
+msgstr "Abstimmen im %s Shortcode aktivieren"
 
 #: edd-coming-soon.php:116 edd-coming-soon.php:533
 msgid "Votes"
-msgstr "Abstimungen"
+msgstr "Stimmen"
 
 #: edd-coming-soon.php:118
 #, php-format
 msgid "%1$s people want this %2$s"
-msgstr "%1$s personen wollen dieser %2$s"
+msgstr "%1$s Leute möchten diese %2$s"
 
 #: edd-coming-soon.php:170
 #, php-format
@@ -66,21 +66,21 @@ msgstr "Dieser Download kann nicht gekauft werden"
 
 #: edd-coming-soon.php:446
 msgid "Let us know you're interested by voting below."
-msgstr "Lass uns wissen dass du interessiert bist durch dein Abstimmung."
+msgstr "Teile uns dein Interesse mit indem du unten abstimmst."
 
 #: edd-coming-soon.php:447
 msgid "I want this"
-msgstr "Ich will das"
+msgstr "Ich möchte das"
 
 #: edd-coming-soon.php:448
 #, php-format
 msgid "We heard you! Your interest for this %s was duly noted."
-msgstr "Wir haben dich gehört! Deine interesse für %s wurde notiert."
+msgstr "Wir haben deine Stimme! Deine Interessen für %s wurden ordnungsgemäss notiert."
 
 #: edd-coming-soon.php:554
 #, php-format
 msgid "%s with no votes won't appear in the above list."
-msgstr "%s mit Nein-Stimmen wird in der obigen Liste nicht angezeigt."
+msgstr "%s mit Nein-Stimmen werden in der obigen Liste nicht angezeigt."
 
 #: edd-coming-soon.php:560
 #, php-format
@@ -88,13 +88,13 @@ msgid ""
 "Either there are no &laquo;Coming Soon&raquo; %s in the shop at the moment, "
 "or none of them received votes."
 msgstr ""
-"Es gibt keine bald erhältlich %s im Shop im Moment oder keine haben Stimmen "
-"erhalten."
+"Entweder es gibt im Moment keine bald erhältliche %s im Shop "
+"oder keine davon haben eine Stimme erhalten."
 
 #: edd-coming-soon.php:577
 #, php-format
 msgid "Most wanted Coming Soon %s"
-msgstr "Meist nachgefragte bald erhältlich %s"
+msgstr "Beliebteste, bald erhältliche %s"
 
 #: edd-coming-soon.php:595
 msgid "Voting..."
@@ -113,6 +113,8 @@ msgid ""
 "Allows \"custom status\" downloads (not available for purchase) and allows "
 "voting on these downloads in Easy Digital Downloads"
 msgstr ""
+"Erlaube den \"benutzerdefinierten Status\" für Downloads welche nicht für den Kauf verfügbar sind. "
+"Ermögliche es zudem für diese Downloads in Easy Digital Downloads abzustimmen."
 
 #. Author of the plugin/theme
 msgid "Andrew Munro, Sumobi"
